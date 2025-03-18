@@ -6,12 +6,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Fortune Wheel</title>
     <link rel="stylesheet" href="./style.css" />
-    <link rel="icon" href="./favicon.ico" type="image/x-icon" />
   </head>
   <body>
-    <canvas id="canvas"></canvas>
+    <!-- <canvas id="canvas"></canvas> -->
+    <div class="container">
+      <div id="wheelOfFortune">
+        <canvas id="wheel" width="300" height="300"></canvas>
+        <div class="marker"></div>
+      </div>
+      <div class="spinButton">Zakręć kołem</div>
+      <div class="menu">
+        <button class="addButton button">Dodaj</button>
+        <input type="text" class="decision" placeholder="Podaj jakąs decyzje" />
+        <button class="resetButton button">Reset</button>
+      </div>
+    </div>
     <!-- <script src="circles.js"></script> -->
     <!-- <script src="image.js"></script> -->
-    <script src="interaction.js"></script>
+    <script src="index.js"></script>
+    <!-- <script src="interaction.js"></script> -->
   </body>
 </html>
