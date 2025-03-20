@@ -1,14 +1,17 @@
 let sectors = [];
 
 const rand = (m, M) => Math.random() * (M - m) + m;
+
+const ctx = document.querySelector("#wheel").getContext("2d");
 const marker = document.querySelector(".marker");
+const decision = document.querySelector(".decision");
+const prize = document.querySelector(".prize");
+
 const spinButton = document.querySelector(".spin-button");
 const addButton = document.querySelector(".add-button");
 const resetButton = document.querySelector(".reset-button");
 const buttons = [spinButton, addButton, resetButton];
-const decision = document.querySelector(".decision");
-const prize = document.querySelector(".prize");
-const ctx = document.querySelector("#wheel").getContext("2d");
+
 const canvaWidth = ctx.canvas.width;
 const canvaHeight = ctx.canvas.width;
 const radius = canvaWidth / 2;
@@ -70,11 +73,6 @@ function engine() {
   requestAnimationFrame(engine);
 }
 
-function generateRandomColorHex() {
-  const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
-  return randomColor;
-}
-
 const spin = () => {
   if (!angVel) angVel = rand(0.25, 0.45);
 };
@@ -114,4 +112,9 @@ function toogleButtonState(isEnabled, buttons) {
       button.classList.add("disable-button");
     }
   });
+}
+
+function generateRandomColorHex() {
+  const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
+  return randomColor;
 }
