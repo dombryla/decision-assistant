@@ -1,16 +1,15 @@
 body {
-  background-color: darkgray;
+  background-color: #1f3548;
 }
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: content-box;
 }
 
 body {
   height: 100vh;
   display: flex;
-  /* place-items: center; */
 }
 
 .container {
@@ -32,7 +31,7 @@ body {
   overflow: visible;
 }
 
-.marker {
+.marker-styles {
   font: 1.5em/0 sans-serif;
   user-select: none;
   cursor: pointer;
@@ -52,7 +51,7 @@ body {
   /* transition: 0.8s; */
 }
 
-.marker::after {
+.marker-styles::after {
   content: "";
   position: absolute;
   top: -10px;
@@ -61,25 +60,69 @@ body {
   border-top: none;
 }
 
+.marker {
+  font: 1.5em/0 sans-serif;
+  color: #fff;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+}
+
 .menu {
   font-weight: bold;
   font-size: larger;
 }
 
-.spinButton {
-  background-color: green;
-  padding: 8px;
-  color: white;
-  border-radius: 15%;
-  cursor: pointer;
-  font-weight: bold;
+.prize {
+  color: #fff;
+  min-width: 300px;
+  text-align: center;
+  background-color: #0aa8f6;
   font-size: larger;
+  font-weight: bold;
+  padding: 10px;
+}
+.spin-button {
+  background: #0aa8f6;
+  font-weight: bold;
 }
 
-.button {
-  padding: 5px;
+.add-button {
+  background: #0aa8f6;
+  width: 25px;
+}
+
+.reset-button {
+  background: red;
+  width: 25px;
 }
 
 .decision {
-  padding: 5px;
+  font-size: large;
+  padding: 10px;
+  position: relative;
+  outline: none;
+  border: none;
+}
+.button {
+  padding: 10px;
+  font-size: large;
+  cursor: pointer;
+  color: #fff;
+  position: relative;
+  outline: none;
+  border: none;
+}
+
+.button:active {
+  top: 2px;
+}
+
+.disable-button {
+  color: #797979;
+  pointer-events: none;
+  background-color: #aaaaaa;
+  cursor: none;
 }

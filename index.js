@@ -2,10 +2,12 @@ let sectors = [];
 
 const rand = (m, M) => Math.random() * (M - m) + m;
 const marker = document.querySelector(".marker");
-const spinButton = document.querySelector(".spinButton");
-const addButton = document.querySelector(".addButton");
+const spinButton = document.querySelector(".spin-button");
+const addButton = document.querySelector(".add-button");
+const resetButton = document.querySelector(".reset-button");
+const buttons = [spinButton, addButton, resetButton];
 const decision = document.querySelector(".decision");
-const resetButton = document.querySelector(".resetButton");
+const prize = document.querySelector(".prize");
 const ctx = document.querySelector("#wheel").getContext("2d");
 const canvaWidth = ctx.canvas.width;
 const canvaHeight = ctx.canvas.width;
@@ -44,9 +46,14 @@ function drawSector(sector, i) {
 function rotate() {
   const sector = sectors[getIndex()];
   ctx.canvas.style.transform = `rotate(${ang - PI / 2}rad)`;
-  spinButton.textContent = !angVel ? "Zakręć kołem" : sector.label;
-  spinButton.style.background = sector.color;
+  prize.textContent = sector.label;
+  prize.style.background = sector.color;
   marker.style.background = sector.color;
+  if (angVel > 0) {
+    toogleButtonState(false, buttons);
+  } else {
+    toogleButtonState(true, buttons);
+  }
 }
 
 function frame() {
@@ -74,6 +81,8 @@ const spin = () => {
 
 function init() {
   ctx.clearRect(0, 0, canvaWidth, canvaHeight);
+  marker.classList.add("marker-styles");
+  marker.innerHTML = "";
   sectors.forEach((sector, i) => drawSector(sector, i));
   rotate(); // Initial rotation
   engine(); // Start engine
@@ -91,5 +100,18 @@ resetButton.addEventListener("click", () => {
   if (angVel) return;
   ctx.clearRect(0, 0, canvaWidth, canvaHeight);
   sectors = [];
+  marker.classList.remove("marker-styles");
+  toogleButtonState(false, [spinButton]);
+  marker.innerHTML = "Dodaj opcje wyboru!";
   spinButton.removeEventListener("click", spin);
 });
+
+function toogleButtonState(isEnabled, buttons) {
+  buttons.forEach((button) => {
+    if (isEnabled) {
+      button.classList.remove("disable-button");
+    } else {
+      button.classList.add("disable-button");
+    }
+  });
+}
