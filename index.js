@@ -20,6 +20,7 @@ const TAU = 2 * PI;
 const friction = 0.995; // 0.995=soft, 0.99=mid, 0.98=hard
 let angVel = 0; // Angular velocity
 let ang = 0; // Angle in radians
+let engineAnimate;
 
 const getIndex = () =>
   Math.floor(sectors.length - (ang / TAU) * sectors.length) % sectors.length;
@@ -70,7 +71,7 @@ function frame() {
 
 function engine() {
   frame();
-  requestAnimationFrame(engine);
+  engineAnimate = requestAnimationFrame(engine);
 }
 
 const spin = () => {
@@ -79,6 +80,9 @@ const spin = () => {
 
 function init() {
   ctx.clearRect(0, 0, canvaWidth, canvaHeight);
+  if (engineAnimate) {
+    cancelAnimationFrame(engineAnimate);
+  }
   marker.classList.add("marker-styles");
   marker.innerHTML = "";
   sectors.forEach((sector, i) => drawSector(sector, i));
@@ -87,11 +91,21 @@ function init() {
   spinButton.addEventListener("click", spin);
 }
 
-addButton.addEventListener("click", () => {
+function handleAddElementToWheel() {
   if (!decision.value || angVel) return;
   sectors.push({ color: generateRandomColorHex(), label: decision.value });
   decision.value = "";
   init();
+}
+
+addButton.addEventListener("click", () => {
+  handleAddElementToWheel();
+});
+
+decision.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    handleAddElementToWheel();
+  }
 });
 
 resetButton.addEventListener("click", () => {
@@ -99,7 +113,7 @@ resetButton.addEventListener("click", () => {
   ctx.clearRect(0, 0, canvaWidth, canvaHeight);
   sectors = [];
   marker.classList.remove("marker-styles");
-  toogleButtonState(false, [spinButton]);
+  toogleButtonState(false, [spinButton, resetButton]);
   marker.innerHTML = "Dodaj opcje wyboru!";
   spinButton.removeEventListener("click", spin);
 });
